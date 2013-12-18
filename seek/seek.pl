@@ -1,12 +1,13 @@
 #!/uer/bin/perl
 
-use strict;
+#use strict;
 use warnings;
 
 my $inpath="/Users/ZhiAnJu/workspace/bioinfo/output/2/";   #dir to input, chane it when you use different equipment; 
 my $outpath="/Users/ZhiAnJu/workspace/bioinfo/output/seekout/";#dir to output;
-my @infile=qw(DroMel DroSim DroSec DroYak DroEre DroAna DroPse DroPer DroWil DroMoj DroVir DroGri);
+my @input=qw(DroMel DroSim DroSec DroYak DroEre DroAna DroPse DroPer DroWil DroMoj DroVir DroGri);
 my $filelength=@infile;
+print "number is $filelength\n";
 ############# whole scale data
 my %alltag = ();
 my %allsite = ();
@@ -23,7 +24,7 @@ for (my $i=0;$i<$filelength;$i++){
 my $str = "";
 my $basenum = "";
 print "copy genome sequence...\nfile:$input[$i]\n";
-open IN,"<"."$inpath"."$input[$i]".".mfa" or die "Can't open input file: $!";
+open IN,"<$inpath"."$input[$i]".".mfa" or die "Can't open input file: $!";
 	foreach(<IN>){
 		unless(/>$input[$i]_CAF\d+/){
 		chomp;
@@ -40,12 +41,12 @@ my $bsaxilen =25;
 ############## extract tags
 open OUT,">"."$outpath"."seek-repeat/"."$infile[$i]"."fa";
 seekstag($bsaxi1,$bsaxilen);
-seekrevtag($bsaxi2,$bsaxilen);
+seeksrevtag($bsaxi2,$bsaxilen);
 close OUT;
-}
+
 sub seekstag(){
-my $mode = @_[0];
-my $len = @_[1];
+my $mode = $_[0];
+my $len = $_[1];
 my $pos;
 my $startpoint;
 my $tag;
@@ -76,8 +77,8 @@ while (($str=~ /$mode/g)){
 
 sub seeksrevtag(){
 
-my $mode = @_[0];
-my $len = @_[1];
+my $mode = $_[0];
+my $len = $_[1];
 my $pos;
 my $startpoint;
 my ($tag,$seq);
@@ -108,4 +109,4 @@ while(($str =~ /$mode/g)){
 }
 
 
-#} #end os whole loop, don't delete
+} #end os whole loop, don't delete
