@@ -1,1 +1,2 @@
-This is the first worl for WuBin.
+This is a bioinformatics workspace for WuBin, it's include some perl programs.
+
